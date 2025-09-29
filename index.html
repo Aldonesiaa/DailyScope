@@ -6,31 +6,32 @@
     <title>DailyScope - Berita Harian Terkini</title>
     <style>
         * { box-sizing: border-box; }
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; line-height: 1.6; }
-        header { background-color: #1a73e8; color: white; padding: 15px; text-align: center; position: relative; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #ffffff; line-height: 1.6; }
+        header { background-color: #4CAF50; color: white; padding: 10px; text-align: center; position: relative; }
         header img { height: 40px; vertical-align: middle; }
-        .search-bar { width: 80%; padding: 10px; border-radius: 20px; border: none; margin-top: 10px; }
-        .categories { display: flex; justify-content: center; gap: 10px; padding: 15px; background-color: #fff; margin: 10px 0; }
-        .category-btn { padding: 8px 15px; border: none; border-radius: 20px; background-color: #e0e0e0; cursor: pointer; }
-        .category-btn.active { background-color: #1a73e8; color: white; }
+        .search-bar { width: 70%; padding: 10px; border-radius: 20px; border: 1px solid #ccc; margin: 10px 0; }
+        .categories { display: flex; justify-content: center; gap: 10px; padding: 10px; background-color: #f5f5f5; margin: 0; }
+        .category-btn { padding: 10px 20px; border: none; border-radius: 20px; background-color: #d3d3d3; cursor: pointer; font-size: 14px; color: #333333; }
+        .category-btn.active { background-color: #4CAF50; color: white; }
         .news-container { padding: 20px; max-width: 1200px; margin: 0 auto; }
-        .news-card { background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; overflow: hidden; }
+        .news-card { background: #ffffff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; overflow: hidden; }
         .news-card img { width: 100%; height: 200px; object-fit: cover; }
         .news-card-content { padding: 15px; }
-        .news-card-content h3 { margin: 0; font-size: 20px; color: #1a73e8; }
-        .news-card-content p { margin: 10px 0; color: #555; }
-        .news-card-content a { color: #1a73e8; text-decoration: none; font-weight: bold; }
+        .news-card-content h3 { margin: 0; font-size: 20px; color: #333333; }
+        .news-card-content p { margin: 10px 0; color: #555555; }
+        .news-card-content a { color: #4CAF50; text-decoration: none; font-weight: bold; }
         .news-card-content a:hover { text-decoration: underline; }
-        nav { position: fixed; bottom: 0; width: 100%; background: #1a73e8; color: white; text-align: center; padding: 10px; }
-        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        nav { position: fixed; bottom: 0; width: 100%; background: #4CAF50; color: white; text-align: center; padding: 10px; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; font-size: 14px; }
         nav a:hover { text-decoration: underline; }
-        .login-btn { position: absolute; top: 15px; right: 20px; background-color: #fff; color: #1a73e8; padding: 5px 15px; border: none; border-radius: 20px; cursor: pointer; }
+        .login-btn { position: absolute; top: 10px; right: 10px; background-color: #fff; color: #4CAF50; padding: 5px 15px; border: 1px solid #4CAF50; border-radius: 20px; cursor: pointer; }
         .login-btn:hover { background-color: #e0e0e0; }
         @media (max-width: 600px) {
             .search-bar { width: 90%; }
             .categories { flex-wrap: wrap; }
             .news-card img { height: 150px; }
             .news-card-content h3 { font-size: 18px; }
+            .login-btn { top: 5px; right: 5px; padding: 3px 10px; font-size: 12px; }
         }
     </style>
 </head>
@@ -91,7 +92,6 @@
             button.addEventListener('click', () => {
                 categoryButtons.forEach(btn => btn.classList.remove('active'));
                 button.classList.add('active');
-                // Tambah logika filter berita berdasarkan kategori di sini jika ada data dinamis
             });
         });
     </script>
