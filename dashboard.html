@@ -1,47 +1,139 @@
-<div id="dashboard" class="dashboard-container hidden">
-            <div class="profile-card">
-                <h2>Profil Saya</h2>
-                <p>Nama: [Nama Pengguna]</p>
-                <p>Email: [email@example.com]</p>
-                <p>Terdaftar: 29 September 2025</p>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DailyScope - Dashboard</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #f0f4f8, #ffffff); min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s; }
+        body.dark-mode { background: linear-gradient(135deg, #2c3e50, #34495e); }
+        body.dark-mode .card { background: #2f2f2f; }
+        body.dark-mode .card h2, body.dark-mode .profile-info p strong { color: #ecf0f1; }
+        body.dark-mode .profile-info p, body.dark-mode .news-summary p { color: #bdc3c7; }
+        body.dark-mode .settings-btn a { background: #27ae60; }
+        body.dark-mode .settings-btn a:hover { background: #219653; }
+        body.dark-mode nav a { color: #ecf0f1; }
+        body.dark-mode nav a:hover { color: #dfe6e9; }
+        header { background: linear-gradient(90deg, #4CAF50, #45a049); color: white; padding: 15px; text-align: center; position: relative; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        header img { height: 50px; vertical-align: middle; }
+        .dashboard-container { max-width: 900px; margin: 30px auto; padding: 20px; display: flex; gap: 20px; flex-wrap: wrap; }
+        .card { background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 20px; width: 100%; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .card h2 { color: #333333; margin-bottom: 15px; font-size: 22px; }
+        .profile-info p { margin: 10px 0; color: #555555; font-size: 16px; }
+        .profile-info p strong { color: #333333; }
+        .news-summary { margin-top: 20px; }
+        .news-summary p { margin: 8px 0; color: #666666; }
+        .news-summary p span { color: #4CAF50; font-weight: bold; }
+        .edit-form { display: none; margin-top: 20px; }
+        .edit-form.active { display: block; }
+        .edit-form input { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; }
+        .edit-form button { background: #4CAF50; color: white; padding: 8px; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+        .edit-form button:hover { background: #45a049; }
+        .settings-btn { display: flex; gap: 10px; margin-top: 20px; }
+        .settings-btn a { flex: 1; text-align: center; padding: 10px; background: #4CAF50; color: white; text-decoration: none; border-radius: 8px; transition: background 0.3s; }
+        .settings-btn a:hover { background: #45a049; }
+        .toggle-dark { position: absolute; top: 15px; right: 15px; background: #ffffff; padding: 5px 10px; border: none; border-radius: 20px; cursor: pointer; color: #4CAF50; font-size: 14px; }
+        .toggle-dark:hover { background: #e0e0e0; }
+        .logout-btn { background: linear-gradient(90deg, #ff4e50, #f9cb28); padding: 12px; border: none; border-radius: 8px; color: white; font-size: 16px; cursor: pointer; width: 100%; margin-top: 20px; transition: transform 0.3s; }
+        .logout-btn:hover { transform: scale(1.05); }
+        nav { background: linear-gradient(90deg, #4CAF50, #45a049); color: white; text-align: center; padding: 15px; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; font-size: 14px; transition: color 0.3s; }
+        nav a:hover { color: #f0f4f8; }
+        @media (min-width: 768px) {
+            .card { width: calc(50% - 10px); }
+            .dashboard-container { padding: 30px; }
+        }
+        @media (max-width: 600px) {
+            header img { height: 40px; }
+            .dashboard-container { margin: 10px; padding: 10px; }
+            .card { width: 100%; }
+            .logout-btn { font-size: 14px; }
+            .toggle-dark { top: 10px; right: 10px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://via.placeholder.com/120x50?text=DailyScope+Logo" alt="DailyScope Logo">
+        <button class="toggle-dark" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </header>
+    
+    <div class="dashboard-container">
+        <div class="card">
+            <h2>Profil Saya</h2>
+            <div class="profile-info">
+                <p><strong>Nama:</strong> John Doe</p>
+                <p><strong>Email:</strong> john.doe@example.com</p>
+                <p><strong>Tanggal Lahir:</strong> 01 Januari 1990</p>
+                <p><strong>Gender:</strong> Laki-laki</p>
             </div>
-            <div class="saved-news">
-                <h3>Berita Tersimpan</h3>
-                <p><a href="#">Breaking News: Peristiwa Besar Hari Ini</a></p>
-                <p><a href="#">Teknologi: Inovasi AI Terbaru</a></p>
+            <div class="edit-form" id="editForm">
+                <input type="text" id="editName" placeholder="Nama Baru" required>
+                <input type="email" id="editEmail" placeholder="Email Baru" required>
+                <button onclick="saveProfile()">Simpan Perubahan</button>
+            </div>
+            <div class="settings-btn">
+                <a href="#" onclick="editProfile(event)">Edit Profil</a>
+                <a href="#" onclick="showNotification()">Notifikasi</a>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Ringkasan Berita</h2>
+            <div class="news-summary">
+                <p>Berita Dibaca: <span>15</span></p>
+                <p>Favorit: <span>5</span></p>
+                <p>Komentar: <span>3</span></p>
             </div>
         </div>
     </div>
-
+    
+    <button class="logout-btn" onclick="window.location.href='login-landing.html'">Logout</button>
+    
     <nav>
-        <a href="#" onclick="showPage('home')">Home</a> |
-        <a href="#" onclick="showPage('login')">Login</a> |
-        <a href="#" onclick="showPage('register')">Register</a> |
-        <a href="#" onclick="showPage('dashboard')">Dashboard</a>
+        <a href="index.html">Home</a> |
+        <a href="login-landing.html">Login</a> |
+        <a href="register.html">Register</a> |
+        <a href="profile.html">Dashboard</a>
     </nav>
 
     <script>
-        function showPage(pageId) {
-            const pages = document.querySelectorAll('.container > div');
-            pages.forEach(page => page.classList.add('hidden'));
-            document.getElementById(pageId).classList.remove('hidden');
+        // Toggle Dark Mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
         }
-        // Load home page by default
-        window.onload = () => showPage('home');
+        window.onload = function() {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+        };
 
-        // Category filter interaction
-        function filterCategory(category) {
-            const newsCards = document.querySelectorAll('.news-card');
-            newsCards.forEach(card => {
-                if (category === 'all' || card.getAttribute('data-category') === category) {
-                    card.style.display = 'block';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
-            const categoryButtons = document.querySelectorAll('.category-btn');
-            categoryButtons.forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`.category-btn[onclick="filterCategory('${category}')"]`).classList.add('active');
+        // Edit Profil
+        function editProfile(event) {
+            event.preventDefault(); // Mencegah aksi default link
+            const editForm = document.getElementById('editForm');
+            editForm.classList.toggle('active');
+        }
+
+        // Simpan Perubahan Profil
+        function saveProfile() {
+            const newName = document.getElementById('editName').value;
+            const newEmail = document.getElementById('editEmail').value;
+            if (newName && newEmail) {
+                document.querySelector('.profile-info p:nth-child(1)').textContent = `Nama: ${newName}`;
+                document.querySelector('.profile-info p:nth-child(2)').textContent = `Email: ${newEmail}`;
+                alert('Profil berhasil diperbarui!');
+                editProfile({ preventDefault: () => {} }); // Tutup form
+            } else {
+                alert('Mohon isi semua field!');
+            }
+        }
+
+        // Notifikasi
+        function showNotification() {
+            alert('Anda memiliki 2 notifikasi baru!');
         }
     </script>
 </body>
