@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DailyScope - Berita Harian Terkini</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; line-height: 1.6; }
+        header { background-color: #1a73e8; color: white; padding: 15px; text-align: center; position: relative; }
+        header img { height: 40px; vertical-align: middle; }
+        .search-bar { width: 80%; padding: 10px; border-radius: 20px; border: none; margin-top: 10px; }
+        .categories { display: flex; justify-content: center; gap: 10px; padding: 15px; background-color: #fff; margin: 10px 0; }
+        .category-btn { padding: 8px 15px; border: none; border-radius: 20px; background-color: #e0e0e0; cursor: pointer; }
+        .category-btn.active { background-color: #1a73e8; color: white; }
+        .news-container { padding: 20px; max-width: 1200px; margin: 0 auto; }
+        .news-card { background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; overflow: hidden; }
+        .news-card img { width: 100%; height: 200px; object-fit: cover; }
+        .news-card-content { padding: 15px; }
+        .news-card-content h3 { margin: 0; font-size: 20px; color: #1a73e8; }
+        .news-card-content p { margin: 10px 0; color: #555; }
+        .news-card-content a { color: #1a73e8; text-decoration: none; font-weight: bold; }
+        .news-card-content a:hover { text-decoration: underline; }
+        nav { position: fixed; bottom: 0; width: 100%; background: #1a73e8; color: white; text-align: center; padding: 10px; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        nav a:hover { text-decoration: underline; }
+        .login-btn { position: absolute; top: 15px; right: 20px; background-color: #fff; color: #1a73e8; padding: 5px 15px; border: none; border-radius: 20px; cursor: pointer; }
+        .login-btn:hover { background-color: #e0e0e0; }
+        @media (max-width: 600px) {
+            .search-bar { width: 90%; }
+            .categories { flex-wrap: wrap; }
+            .news-card img { height: 150px; }
+            .news-card-content h3 { font-size: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://via.placeholder.com/100x40?text=DailyScope+Logo" alt="DailyScope Logo">
+        <input type="text" class="search-bar" placeholder="Cari berita...">
+        <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+    </header>
+    
+    <div class="categories">
+        <button class="category-btn active">Semua</button>
+        <button class="category-btn">Nasional</button>
+        <button class="category-btn">Internasional</button>
+        <button class="category-btn">Teknologi</button>
+        <button class="category-btn">Olahraga</button>
+    </div>
+    
+    <div class="news-container">
+        <div class="news-card">
+            <img src="https://via.placeholder.com/400x200?text=Breaking+News" alt="Breaking News">
+            <div class="news-card-content">
+                <h3>Breaking News: Peristiwa Besar Hari Ini</h3>
+                <p>Update terbaru tentang peristiwa penting yang terjadi pada 29 September 2025 di Indonesia.</p>
+                <a href="#">Baca Selengkapnya</a>
+            </div>
+        </div>
+        
+        <div class="news-card">
+            <img src="https://via.placeholder.com/400x200?text=Teknologi" alt="Teknologi">
+            <div class="news-card-content">
+                <h3>Teknologi: Inovasi AI Terbaru</h3>
+                <p>Penemuan terbaru dalam dunia teknologi yang mengubah cara kita hidup pada tahun 2025.</p>
+                <a href="#">Baca Selengkapnya</a>
+            </div>
+        </div>
+        
+        <div class="news-card">
+            <img src="https://via.placeholder.com/400x200?text=Olahraga" alt="Olahraga">
+            <div class="news-card-content">
+                <h3>Olahraga: Kemenangan Tim Nasional</h3>
+                <p>Tim nasional meraih kemenangan gemilang pada pertandingan terakhir bulan ini.</p>
+                <a href="#">Baca Selengkapnya</a>
+            </div>
+        </div>
+    </div>
+    
+    <nav>
+        <a href="index.html">Home</a> |
+        <a href="login.html">Login</a> |
+        <a href="register.html">Register</a> |
+        <a href="dashboard.html">Dashboard</a>
+    </nav>
+
+    <script>
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                // Tambah logika filter berita berdasarkan kategori di sini jika ada data dinamis
+            });
+        });
+    </script>
+</body>
+</html>
