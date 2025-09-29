@@ -1,55 +1,48 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DailyScope - Dashboard</title>
-    <style>
-        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f0f2f5; }
-        header { background-color: #1a73e8; color: white; padding: 15px; text-align: center; }
-        header img { height: 40px; vertical-align: middle; }
-        .dashboard-container { padding: 20px; max-width: 1200px; margin: 0 auto; }
-        .profile-card { background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 20px; margin-bottom: 20px; }
-        .profile-card h2 { margin: 0; color: #1a73e8; }
-        .profile-card p { color: #555; }
-        .saved-news { background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 15px; }
-        .saved-news h3 { color: #1a73e8; }
-        .saved-news a { color: #1a73e8; text-decoration: none; }
-        .saved-news a:hover { text-decoration: underline; }
-        nav { position: fixed; bottom: 0; width: 100%; background: #1a73e8; color: white; text-align: center; padding: 10px; }
-        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
-        nav a:hover { text-decoration: underline; }
-        @media (max-width: 600px) {
-            .dashboard-container { padding: 10px; }
-            .profile-card, .saved-news { padding: 10px; }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <img src="https://via.placeholder.com/100x40?text=DailyScope+Logo" alt="DailyScope Logo">
-    </header>
-    
-    <div class="dashboard-container">
-        <div class="profile-card">
-            <h2>Profil Saya</h2>
-            <p>Nama: [Nama Pengguna]</p>
-            <p>Email: [email@example.com]</p>
-            <p>Terdaftar: 29 September 2025</p>
-        </div>
-        
-        <div class="saved-news">
-            <h3>Berita Tersimpan</h3>
-            <p><a href="#">Breaking News: Peristiwa Besar Hari Ini</a></p>
-            <p><a href="#">Teknologi: Inovasi AI Terbaru</a></p>
+<div id="dashboard" class="dashboard-container hidden">
+            <div class="profile-card">
+                <h2>Profil Saya</h2>
+                <p>Nama: [Nama Pengguna]</p>
+                <p>Email: [email@example.com]</p>
+                <p>Terdaftar: 29 September 2025</p>
+            </div>
+            <div class="saved-news">
+                <h3>Berita Tersimpan</h3>
+                <p><a href="#">Breaking News: Peristiwa Besar Hari Ini</a></p>
+                <p><a href="#">Teknologi: Inovasi AI Terbaru</a></p>
+            </div>
         </div>
     </div>
-    
+
     <nav>
-        <a href="index.html">Home</a> |
-        <a href="login.html">Login</a> |
-        <a href="register.html">Register</a> |
-        <a href="dashboard.html">Dashboard</a>
+        <a href="#" onclick="showPage('home')">Home</a> |
+        <a href="#" onclick="showPage('login')">Login</a> |
+        <a href="#" onclick="showPage('register')">Register</a> |
+        <a href="#" onclick="showPage('dashboard')">Dashboard</a>
     </nav>
+
+    <script>
+        function showPage(pageId) {
+            const pages = document.querySelectorAll('.container > div');
+            pages.forEach(page => page.classList.add('hidden'));
+            document.getElementById(pageId).classList.remove('hidden');
+        }
+        // Load home page by default
+        window.onload = () => showPage('home');
+
+        // Category filter interaction
+        function filterCategory(category) {
+            const newsCards = document.querySelectorAll('.news-card');
+            newsCards.forEach(card => {
+                if (category === 'all' || card.getAttribute('data-category') === category) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            categoryButtons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.category-btn[onclick="filterCategory('${category}')"]`).classList.add('active');
+        }
+    </script>
 </body>
 </html>
