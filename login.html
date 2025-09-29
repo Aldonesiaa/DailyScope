@@ -1,18 +1,64 @@
-<div id="login" class="login-container hidden">
-            <h2>Login</h2>
-            <form>
-                <div class="form-group">
-                    <label for="email">Email atau Nomor Telepon</label>
-                    <input type="text" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Kata Sandi</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <div class="forgot-link">
-                    <a href="#">Lupa Kata Sandi?</a>
-                </div>
-                <button type="submit">Masuk</button>
-                <p class="note">Facebook who use our service may have uploaded your contact information to help you find friends.</p>
-            </form>
-        </div>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DailyScope - Login</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #ffffff; line-height: 1.6; }
+        header { background-color: #4CAF50; color: white; padding: 10px; text-align: center; position: relative; }
+        header img { height: 40px; vertical-align: middle; }
+        .login-container { max-width: 400px; margin: 50px auto; padding: 20px; background: #ffffff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .login-container h2 { margin: 0 0 20px; color: #333333; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: #333333; }
+        .form-group input { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        button { background-color: #4CAF50; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; }
+        button:hover { background-color: #45a049; }
+        .forgot-link { text-align: right; margin-top: 10px; }
+        .forgot-link a { color: #4CAF50; text-decoration: none; }
+        .forgot-link a:hover { text-decoration: underline; }
+        .note { color: #777777; font-size: 12px; margin-top: 10px; text-align: center; }
+        nav { position: fixed; bottom: 0; width: 100%; background: #4CAF50; color: white; text-align: center; padding: 10px; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        nav a:hover { text-decoration: underline; }
+        @media (max-width: 600px) {
+            .login-container { margin: 20px; padding: 15px; }
+            .form-group input { font-size: 14px; }
+            button { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://via.placeholder.com/100x40?text=DailyScope+Logo" alt="DailyScope Logo">
+    </header>
+    
+    <div class="login-container">
+        <h2>Login</h2>
+        <form>
+            <div class="form-group">
+                <label for="email">Email atau Nomor Telepon</label>
+                <input type="text" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Kata Sandi</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div class="forgot-link">
+                <a href="#">Lupa Kata Sandi?</a>
+            </div>
+            <button type="submit">Masuk</button>
+            <p class="note">DailyScope yang menggunakan layanan kami mungkin telah mengunggah informasi kontak Anda untuk membantu menemukan teman.</p>
+        </form>
+    </div>
+    
+    <nav>
+        <a href="index.html">Home</a> |
+        <a href="login.html">Login</a> |
+        <a href="register.html">Register</a> |
+        <a href="dashboard.html">Dashboard</a>
+    </nav>
+</body>
+</html>
