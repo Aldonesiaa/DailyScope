@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard DailyScope</title>
+<style>
+  :root {
+    --warna-utama: #4CAF50;
+    --bg-color: #ffffff;
+    --text-color: #333;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: background 0.3s, color 0.3s;
+  }
+
+  header {
+    background: var(--warna-utama);
+    color: white;
+    text-align: center;
+    padding: 16px 0;
+    font-size: 26px;
+    font-weight: bold;
+  }
+
+  .container {
+    display: flex;
+    min-height: 90vh;
+  }
+
+  .sidebar {
+    width: 240px;
+    background: var(--warna-utama);
+    color: white;
+    padding: 25px 15px;
+    transition: background 0.3s;
+  }
+
+  .sidebar h2 {
+    text-align: center;
+    font-size: 26px;
+    margin-bottom: 25px;
+  }
+
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .sidebar ul li {
+    margin: 20px 0;
+  }
+
+  .sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 500;
+    transition: 0.3s;
+  }
+
+  .sidebar ul li a:hover {
+    background: #45a049;
+  }
+
+  .content {
+    flex: 1;
+    padding: 40px;
+  }
+
+  .content h1 {
+    color: var(--warna-utama);
+    font-size: 30px;
+    margin-bottom: 20px;
+  }
+
+  footer {
+    background: var(--warna-utama);
+    color: #fff;
+    text-align: center;
+    padding: 14px 0;
+    font-size: 16px;
+    transition: background 0.3s;
+  }
+
+  footer a {
+    color: #24086e;
+    text-decoration: none;
+    margin: 0 6px;
+  }
+
+  footer a:hover {
+    text-decoration: underline;
+  }
+
+  .btn {
+    background: var(--warna-utama);
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+
+  .btn:hover {
+    background: #45a049;
+  }
+
+  .btn-danger {
+    background: #f44336;
+  }
+
+  .btn-danger:hover {
+    background: #d32f2f;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+
+  th {
+    background: #e9e9e9;
+  }
+
+  .setting-item {
+    margin-bottom: 20px;
+  }
+
+  .setting-item label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: bold;
+  }
+
+  select, input[type="color"] {
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+  }
+
+  .modal-content {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+  }
+
+  /* === RESPONSIVE DESIGN === */
+  @media (max-width: 768px) {
+    header {
+      font-size: 20px;
+      padding: 10px 0;
+    }
+
+    .container {
+      flex-direction: column;
+    }
+
+    .sidebar {
+      width: 100%;
+      text-align: center;
+      padding: 15px;
+    }
+
+    .sidebar ul {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sidebar ul li {
+      margin: 0;
+    }
+
+    .content {
+      padding: 20px;
+    }
+
+    table, th, td {
+      font-size: 14px;
+    }
+
+    footer {
+      font-size: 14px;
+      padding: 10px 0;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>Dashboard DailyScope</header>
+
+<div class="container">
+  <div class="sidebar">
+    <h2>Menu</h2>
+    <ul>
+      <li><a href="#" onclick="tampilkanHalaman('dashboard')">Dashboard</a></li>
+      <li><a href="#" onclick="tampilkanHalaman('berita')">Berita</a></li>
+      <li><a href="#" onclick="tampilkanHalaman('riwayat')">Riwayat Login</a></li>
+      <li><a href="#" onclick="tampilkanHalaman('profil')">Profil</a></li>
+      <li><a href="#" onclick="tampilkanHalaman('pengaturan')">Pengaturan</a></li>
+      <li><a href="#" onclick="logout()">Logout</a></li>
+    </ul>
+  </div>
+
+  <div class="content" id="konten">
+    <h1>Selamat Datang di Dashboard</h1>
+    <p>Hai, ini adalah halaman utama setelah kamu login ke sistem media & berita.</p>
+  </div>
+</div>
+
+<footer>
+  <a href="index.html">Home</a> |
+  <a href="login.html">Login</a> |
+  <a href="register.html">Register</a> |
+  <a href="dashboard.html">Dashboard</a>
+</footer>
+
+<!-- Modal Tambah/Edit Berita -->
+<div id="formModal" class="modal">
+  <div class="modal-content">
+    <h3 id="modalTitle">Tambah Berita</h3>
+    <div class="form-control">
+      <label>Judul Berita</label>
+      <input type="text" id="judul">
+    </div>
+
+    <div class="form-control">
+      <label>Jenis Berita</label>
+      <select id="jenis">
+        <option value="">-- Pilih Jenis --</option>
+        <option>Politik</option>
+        <option>Teknologi</option>
+        <option>Olahraga</option>
+        <option>Hiburan</option>
+        <option>Ekonomi</option>
+      </select>
+    </div>
+
+    <div class="form-control">
+      <label>Isi Berita</label>
+      <input type="text" id="isi">
+    </div>
+
+    <button class="btn" onclick="simpanBerita()">Simpan</button>
+    <button class="btn btn-danger" onclick="closeModal()">Batal</button>
+  </div>
+</div>
+
+<script>
+  let berita = [];
+  let editIndex = -1;
+
+  // ====== DATA TEMA ======
+  const tema = localStorage.getItem("tema") || "terang";
+  const warnaUtama = localStorage.getItem("warnaUtama") || "#4CAF50";
+  aturTema(tema);
+  document.documentElement.style.setProperty("--warna-utama", warnaUtama);
+
+  // ====== LOG RIWAYAT LOGIN ======
+  function simpanRiwayatLogin() {
+    const data = JSON.parse(localStorage.getItem("riwayatLogin") || "[]");
+    const waktu = new Date().toLocaleString("id-ID");
+    data.push({ waktu });
+    localStorage.setItem("riwayatLogin", JSON.stringify(data));
+  }
+
+  // Simpan riwayat setiap kali halaman dibuka
+  simpanRiwayatLogin();
+
+  // ====== NAVIGASI HALAMAN ======
+  function tampilkanHalaman(halaman) {
+    const konten = document.getElementById("konten");
+
+    if (halaman === "dashboard") {
+      konten.innerHTML = `
+        <h1>Dashboard</h1>
+        <p>Ini adalah halaman utama yang menampilkan ringkasan berita dan aktivitas pengguna.</p>
+      `;
+    }
+
+    else if (halaman === "berita") {
+      konten.innerHTML = `
+        <div class="crud-container">
+          <div class="crud-header">
+            <h2>Manajemen Berita</h2>
+            <button class="btn" onclick="openModal()">+ Tambah Berita</button>
+          </div>
+          <table id="tabelBerita">
+            <thead>
+              <tr>
+                <th>Judul</th>
+                <th>Jenis</th>
+                <th>Isi</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>`;
+      tampilkanTabel();
+    }
+
+    else if (halaman === "riwayat") {
+      const data = JSON.parse(localStorage.getItem("riwayatLogin") || "[]");
+      let rows = data.map((r, i) => `<tr><td>${i + 1}</td><td>${r.waktu}</td></tr>`).join("");
+      if (!rows) rows = `<tr><td colspan="2">Belum ada riwayat login</td></tr>`;
+      konten.innerHTML = `
+        <h1>Riwayat Login</h1>
+        <table>
+          <thead>
+            <tr><th>No</th><th>Waktu Login</th></tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+
+    else if (halaman === "profil") {
+      konten.innerHTML = `
+        <h1>Profil Pengguna</h1>
+        <p>Nama: Admin</p>
+        <p>Email: admin@dailyscope.id</p>
+      `;
+    }
+
+    else if (halaman === "pengaturan") {
+      konten.innerHTML = `
+        <h1>Pengaturan</h1>
+        <div class="setting-item">
+          <label for="tema">Tema Tampilan</label>
+          <select id="tema" onchange="gantiTema(this.value)">
+            <option value="terang" ${tema === "terang" ? "selected" : ""}>Terang</option>
+            <option value="gelap" ${tema === "gelap" ? "selected" : ""}>Gelap</option>
+          </select>
+        </div>
+
+        <div class="setting-item">
+          <label for="warnaUtama">Warna Utama</label>
+          <input type="color" id="warnaUtama" value="${warnaUtama}" onchange="gantiWarna(this.value)">
+        </div>
+
+        <p>Ubah preferensi sistem dan tampilan di sini.</p>
+      `;
+    }
+  }
+
+  // ====== CRUD BERITA ======
+  function tampilkanTabel() {
+    const tbody = document.querySelector("#tabelBerita tbody");
+    if (!tbody) return;
+    tbody.innerHTML = "";
+    berita.forEach((b, i) => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${b.judul}</td>
+          <td>${b.jenis}</td>
+          <td>${b.isi}</td>
+          <td>
+            <button class="btn" onclick="editBerita(${i})">Edit</button>
+            <button class="btn btn-danger" onclick="hapusBerita(${i})">Hapus</button>
+          </td>
+        </tr>
+      `;
+    });
+  }
+
+  function openModal() {
+    document.getElementById("formModal").style.display = "block";
+    document.getElementById("modalTitle").innerText = "Tambah Berita";
+    document.getElementById("judul").value = "";
+    document.getElementById("jenis").value = "";
+    document.getElementById("isi").value = "";
+    editIndex = -1;
+  }
+
+  function closeModal() {
+    document.getElementById("formModal").style.display = "none";
+  }
+
+  function simpanBerita() {
+    const judul = document.getElementById("judul").value.trim();
+    const jenis = document.getElementById("jenis").value.trim();
+    const isi = document.getElementById("isi").value.trim();
+
+    if (!judul || !jenis || !isi) {
+      alert("Semua kolom wajib diisi!");
+      return;
+    }
+
+    if (editIndex === -1) {
+      berita.push({ judul, jenis, isi });
+    } else {
+      berita[editIndex] = { judul, jenis, isi };
+    }
+
+    closeModal();
+    tampilkanTabel();
+  }
+
+  function editBerita(index) {
+    const b = berita[index];
+    openModal();
+    document.getElementById("modalTitle").innerText = "Edit Berita";
+    document.getElementById("judul").value = b.judul;
+    document.getElementById("jenis").value = b.jenis;
+    document.getElementById("isi").value = b.isi;
+    editIndex = index;
+  }
+
+  function hapusBerita(index) {
+    if (confirm("Yakin ingin menghapus berita ini?")) {
+      berita.splice(index, 1);
+      tampilkanTabel();
+    }
+  }
+
+  // ====== PENGATURAN ======
+  function gantiTema(mode) {
+    localStorage.setItem("tema", mode);
+    aturTema(mode);
+  }
+
+  function aturTema(mode) {
+    if (mode === "gelap") {
+      document.documentElement.style.setProperty("--bg-color", "#121212");
+      document.documentElement.style.setProperty("--text-color", "#f5f5f5");
+    } else {
+      document.documentElement.style.setProperty("--bg-color", "#ffffff");
+      document.documentElement.style.setProperty("--text-color", "#333");
+    }
+  }
+
+  function gantiWarna(warna) {
+    document.documentElement.style.setProperty("--warna-utama", warna);
+    localStorage.setItem("warnaUtama", warna);
+  }
+
+  function logout() {
+    if (confirm("Yakin ingin logout?")) {
+      window.location.href = "login.html";
+    }
+  }
+
+  window.onclick = function(event) {
+    const modal = document.getElementById("formModal");
+    if (event.target === modal) modal.style.display = "none";
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lupa Kata Sandi</title>
+<style>
+body {font-family:Arial;text-align:center;padding:50px;background:#f7f7f7;}
+input {padding:8px;width:250px;border:1px solid #ccc;border-radius:4px;margin-bottom:10px;}
+button {padding:8px 20px;background:#4CAF50;color:#fff;border:none;border-radius:4px;cursor:pointer;}
+button:hover {background:#45a049;}
+</style>
+</head>
+<body>
+  <h2>Lupa Kata Sandi</h2>
+  <div id="step1">
+    <p>Masukkan email terdaftar Anda:</p>
+    <input type="email" id="email" placeholder="Email Anda">
+    <br>
+    <button onclick="kirimKode()">Kirim Kode</button>
+  </div>
+
+  <div id="step2" style="display:none">
+    <p>Kode verifikasi telah dikirim ke email Anda (simulasi)</p>
+    <input type="text" id="kode" placeholder="Masukkan kode">
+    <br>
+    <button onclick="verifikasiKode()">Verifikasi</button>
+  </div>
+
+  <div id="step3" style="display:none">
+    <p>Masukkan kata sandi baru Anda:</p>
+    <input type="password" id="newPass" placeholder="Kata sandi baru">
+    <br>
+    <button onclick="gantiSandi()">Ganti Sandi</button>
+  </div>
+
+<script>
+let kodeAsli = "";
+
+function kirimKode(){
+  const email = document.getElementById("email").value.trim();
+  if(!email) return alert("Email belum diisi!");
+  
+  // Buat kode acak 6 digit
+  kodeAsli = Math.floor(100000 + Math.random() * 900000).toString();
+  
+  // Simulasi kirim ke Gmail
+  alert("Kode verifikasi dikirim ke " + email + "\n(Kode: " + kodeAsli + ")");
+  
+  document.getElementById("step1").style.display = "none";
+  document.getElementById("step2").style.display = "block";
+}
+
+function verifikasiKode(){
+  const kode = document.getElementById("kode").value.trim();
+  if(kode === kodeAsli){
+    alert("Kode benar! Silakan ubah kata sandi Anda.");
+    document.getElementById("step2").style.display = "none";
+    document.getElementById("step3").style.display = "block";
+  } else {
+    alert("Kode salah! Coba lagi.");
+  }
+}
+
+function gantiSandi(){
+  const newPass = document.getElementById("newPass").value.trim();
+  if(!newPass) return alert("Kata sandi belum diisi!");
+  alert("Kata sandi berhasil diubah!");
+  window.location.href = "login.html";
+}
+</script>
+</body>
+</html>
