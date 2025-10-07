@@ -182,5 +182,157 @@
     <a href="dashboard.html">Dashboard</a>
   </nav>
 
+=======
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DailyScope - Register</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #ffffff; line-height: 1.6; }
+        header { background-color: #4CAF50; color: white; padding: 10px; text-align: center; position: relative; }
+        header img { height: 40px; vertical-align: middle; }
+        .register-container { max-width: 400px; margin: 50px auto; padding: 20px; background: #ffffff; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        .register-container h2 { margin: 0 0 20px; color: #333333; text-align: center; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 5px; color: #333333; }
+        .form-group input, .form-group select { width: 100%; padding: 8px; border: 1px solid #ccc; border-radius: 4px; }
+        .form-group .radio-group { margin-top: 5px; }
+        .form-group .radio-group input { margin-right: 5px; }
+        button { background-color: #4CAF50; color: white; padding: 10px; border: none; border-radius: 4px; cursor: pointer; width: 100%; font-size: 16px; }
+        button:hover { background-color: #45a049; }
+        .login-link { text-align: center; margin-top: 10px; }
+        .login-link a { color: #4CAF50; text-decoration: none; }
+        .login-link a:hover { text-decoration: underline; }
+        .note { color: #777777; font-size: 12px; margin-top: 10px; text-align: center; }
+        .error { color: #ff4e50; font-size: 12px; display: none; margin-top: 5px; }
+        nav { position: fixed; bottom: 0; width: 100%; background: #4CAF50; color: white; text-align: center; padding: 10px; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        nav a:hover { text-decoration: underline; }
+        @media (max-width: 600px) {
+            .register-container { margin: 20px; padding: 15px; }
+            .form-group input, .form-group select { font-size: 14px; }
+            button { font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://via.placeholder.com/100x40?text=DailyScope+Logo" alt="DailyScope Logo">
+    </header>
+    
+    <div class="register-container">
+        <h2>Create a new account</h2>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="first-name">First name</label>
+                <input type="text" id="first-name" name="first-name" required>
+                <div class="error" id="firstNameError">Nama depan harus diisi!</div>
+            </div>
+            <div class="form-group">
+                <label for="last-name">Last name</label>
+                <input type="text" id="last-name" name="last-name" required>
+                <div class="error" id="lastNameError">Nama belakang harus diisi!</div>
+            </div>
+            <div class="form-group">
+                <label for="birthday">Birthday</label>
+                <input type="date" id="birthday" name="birthday" value="2025-09-28" required>
+                <div class="error" id="birthdayError">Tanggal lahir harus diisi!</div>
+            </div>
+            <div class="form-group">
+                <label>Gender</label>
+                <div class="radio-group">
+                    <input type="radio" name="gender" value="female" required> Female
+                    <input type="radio" name="gender" value="male"> Male
+                    <input type="radio" name="gender" value="custom"> Custom
+                </div>
+                <div class="error" id="genderError">Jenis kelamin harus dipilih!</div>
+            </div>
+            <div class="form-group">
+                <label for="email">Mobile number or email</label>
+                <input type="text" id="email" name="email" required>
+                <div class="error" id="emailError">Email atau nomor telepon harus diisi!</div>
+            </div>
+            <div class="form-group">
+                <label for="password">New password</label>
+                <input type="password" id="password" name="password" required>
+                <div class="error" id="passwordError">Kata sandi harus diisi!</div>
+            </div>
+            <button type="submit">Sign Up</button>
+            <p class="note">Facebook yang menggunakan layanan kami mungkin telah mengunggah informasi kontak Anda untuk membantu menemukan teman.</p>
+            <p class="note">Dengan mengklik Sign Up, Anda menyetujui Terms, Privacy Policy, dan Cookies Policy. Anda mungkin akan menerima notifikasi SMS dari kami dan dapat berhenti kapan saja.</p>
+            <p class="login-link">Already have an account? <a href="login.html">Log in</a></p>
+        </form>
+    </div>
+    
+    <nav>
+        <a href="index.html">Home</a> |
+        <a href="login.html">Login</a> |
+        <a href="register.html">Register</a> |
+        <a href="profile.html">Dashboard</a>
+    </nav>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            // Ambil nilai input
+            const firstName = document.getElementById('first-name').value.trim();
+            const lastName = document.getElementById('last-name').value.trim();
+            const birthday = document.getElementById('birthday').value;
+            const gender = document.querySelector('input[name="gender"]:checked');
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            // Reset pesan error
+            document.querySelectorAll('.error').forEach(error => error.style.display = 'none');
+
+            // Validasi
+            let isValid = true;
+            if (!firstName) {
+                document.getElementById('firstNameError').style.display = 'block';
+                isValid = false;
+            }
+            if (!lastName) {
+                document.getElementById('lastNameError').style.display = 'block';
+                isValid = false;
+            }
+            if (!birthday) {
+                document.getElementById('birthdayError').style.display = 'block';
+                isValid = false;
+            }
+            if (!gender) {
+                document.getElementById('genderError').style.display = 'block';
+                isValid = false;
+            }
+            if (!email) {
+                document.getElementById('emailError').style.display = 'block';
+                isValid = false;
+            }
+            if (!password || password.length < 6) {
+                document.getElementById('passwordError').style.display = 'block';
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Simpan data ke localStorage
+                const user = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    birthday: birthday,
+                    gender: gender.value,
+                    email: email,
+                    password: password // Catatan: Dalam aplikasi nyata, jangan simpan password plain text, gunakan hashing!
+                };
+                let users = JSON.parse(localStorage.getItem('users') || '[]');
+                users.push(user);
+                localStorage.setItem('users', JSON.stringify(users));
+
+                // Konfirmasi dan arahkan ke login
+                alert('Akun berhasil dibuat! Silakan login.');
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+>>>>>>> 71f753784308ce5538399104abb03bbfecc4948f
 </body>
 </html>
