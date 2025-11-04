@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DailyScope - Register</title>
+  <link rel="stylesheet" href="css/register.css">
+  
+</head>
+<body>
+
+  <header>
+    <img src="asset/DailyScope.jpg" alt="DailyScope Logo">
+    <button class="mode-toggle" id="modeToggle">🌙 Mode Gelap</button>
+  </header>
+  
+  <div class="register-container">
+    <h2>Buat Akun Baru</h2>
+    <form id="registerForm">
+      <div class="form-group">
+        <label>Nama Depan</label>
+        <input type="text" id="first-name" required>
+      </div>
+
+      <div class="form-group">
+        <label>Nama Belakang</label>
+        <input type="text" id="last-name" required>
+      </div>
+
+      <div class="form-group">
+        <label>Tanggal Lahir</label>
+        <input type="date" id="birthday" required>
+      </div>
+
+      <div class>
+        <label>Jenis Kelamin</label>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="Perempuan" required> Perempuan</label>
+          <label><input type="radio" name="gender" value="Laki-laki"> Laki-laki</label>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email / No HP</label>
+        <input type="text" id="email" required>
+      </div>
+
+      <div class="form-group">
+        <label>Kata Sandi</label>
+        <input type="password" id="password" required>
+      </div>
+
+      <button type="submit">Daftar</button>
+
+      <p class="note">Dengan membuat akun, Anda menyetujui Kebijakan Privasi <strong>DailyScope</strong>.</p>
+      <p class="login-link">Sudah punya akun? <a href="login.html">Masuk</a></p>
+    </form>
+  </div>
+
+  <nav>
+    <a href="#"></a>
+  </nav>
+
+  <script src="js/register.js"></script>
+</body>
+</html>

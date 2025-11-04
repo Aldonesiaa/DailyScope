@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DailyScope - Pengaturan</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #ffffff;
+      line-height: 1.6;
+      transition: background 0.3s, color 0.3s;
+    }
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      position: relative;
+    }
+    header img { height: 40px; vertical-align: middle; }
+
+    .settings-container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .settings-container h2 {
+      margin: 0 0 20px;
+      color: #333333;
+      text-align: center;
+    }
+
+    .setting-item { margin-bottom: 15px; }
+    .setting-item label {
+      display: block;
+      margin-bottom: 5px;
+      color: #333333;
+    }
+
+    .setting-item input, .setting-item select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .setting-item .toggle {
+      width: auto;
+      margin-left: 10px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+      margin-top: 10px;
+    }
+    button:hover { background-color: #45a049; }
+
+    .back-link {
+      text-align: center;
+      margin-top: 10px;
+    }
+    .back-link a { color: #4CAF50; text-decoration: none; }
+    .back-link a:hover { text-decoration: underline; }
+
+    nav {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #4CAF50;
+      color: white;
+      text-align: center;
+      padding: 10px;
+    }
+    nav a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    nav a:hover { text-decoration: underline; }
+
+    /* Mode gelap */
+    body.dark {
+      background-color: #121212;
+      color: #ffffff;
+    }
+    body.dark .settings-container {
+      background: #1e1e1e;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+    }
+    body.dark .setting-item label { color: #fff; }
+    body.dark .setting-item input,
+    body.dark .setting-item select {
+      background: #2c2c2c;
+      color: #fff;
+      border: 1px solid #555;
+    }
+    body.dark .back-link a { color: #00ff66; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="asset/DailyScope.jpg" alt="DailyScope Logo">
+  </header>
+  
+  <div class="settings-container">
+    <h2>Pengaturan</h2>
+
+    <div class="setting-item">
+      <label for="notifications">Aktifkan Notifikasi</label>
+      <input type="checkbox" id="notifications" class="toggle">
+    </div>
+
+    <div class="setting-item">
+      <label for="language">Bahasa</label>
+      <select id="language">
+        <option value="id">Indonesia</option>
+        <option value="en">English</option>
+      </select>
+    </div>
+
+    <div class="setting-item">
+      <label for="theme">Mode Gelap</label>
+      <input type="checkbox" id="theme" class="toggle">
+    </div>
+
+    <button id="saveBtn">Simpan</button>
+    <div class="back-link">
+      <a href="profile.html">Kembali ke Profil</a>
+    </div>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a> |
+    <a href="login.html">Login</a> |
+    <a href="register.html">Register</a> |
+    <a href="profile.html">Dashboard</a>
+  </nav>
+
+  <script>
+    // Ambil elemen
+    const notif = document.getElementById("notifications");
+    const lang = document.getElementById("language");
+    const theme = document.getElementById("theme");
+    const saveBtn = document.getElementById("saveBtn");
+
+    // Saat pertama kali dibuka, ambil data dari localStorage
+    window.addEventListener("load", () => {
+      const settings = JSON.parse(localStorage.getItem("settings")) || {};
+      notif.checked = settings.notifications || false;
+      lang.value = settings.language || "id";
+      theme.checked = settings.darkMode || false;
+      if (settings.darkMode) document.body.classList.add("dark");
+    });
+
+    // Mode gelap langsung aktif saat dicentang
+    theme.addEventListener("change", () => {
+      if (theme.checked) {
+        document.body.classList.add("dark");
+      } else {
+        document.body.classList.remove("dark");
+      }
+    });
+
+    // Simpan pengaturan ke localStorage
+    saveBtn.addEventListener("click", () => {
+      const settings = {
+        notifications: notif.checked,
+        language: lang.value,
+        darkMode: theme.checked
+      };
+      localStorage.setItem("settings", JSON.stringify(settings));
+      alert("✅ Pengaturan disimpan!");
+
+      // Simulasi kirim notifikasi
+      if (settings.notifications) {
+        alert("🔔 Notifikasi diaktifkan!");
+      }
+
+      // Ubah bahasa contoh
+      if (settings.language === "en") {
+        document.querySelector("h2").textContent = "Settings";
+        saveBtn.textContent = "Save";
+      } else {
+        document.querySelector("h2").textContent = "Pengaturan";
+        saveBtn.textContent = "Simpan";
+      }
+    });
+  </script>
+</body>
+</html>

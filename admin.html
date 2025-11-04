@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard DailyScope</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+
+  <header>Dashboard DailyScope</header>
+
+  <div class="container">
+    <div class="sidebar">
+      <h2>Menu</h2>
+      <ul>
+        <li><a href="#" onclick="tampilkanHalaman('dashboard')">Dashboard</a></li>
+        <li><a href="#" onclick="tampilkanHalaman('berita')">Berita</a></li>
+        <li><a href="#" onclick="tampilkanHalaman('riwayat')">Riwayat Login</a></li>
+        <li><a href="#" onclick="tampilkanHalaman('profil')">Profil</a></li>
+        <li><a href="#" onclick="tampilkanHalaman('pengaturan')">Pengaturan</a></li>
+        <li><a href="index.html">Halaman Berita</a></li>
+        <li><a href="#" onclick="logout()">Logout</a></li>
+      </ul>
+    </div>
+
+    <div class="content" id="konten">
+      <div class="welcome-section">
+        <h1>Selamat Datang di Halaman Admin</h1>
+        <p>Di sini kamu dapat mengelola berita, pengguna, dan data lainnya.</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer-menu">
+    <nav>
+      <a href="#"></a>
+    </nav>
+  </footer>
+
+  <!-- Popup Form Berita -->
+  <form id="formBerita" class="popup-berita" onsubmit="return false;">
+    <div class="popup-berita-content">
+      <h3 id="judulPopup">Tambah Berita</h3>
+      <div class="form-control">
+        <label>Judul Berita</label>
+        <input type="text" id="judul">
+      </div>
+      <div class="form-control">
+        <label>Jenis Berita</label>
+        <select id="jenis">
+          <option value="">-- Pilih Jenis --</option>
+          <option>Internasional</option>
+          <option>Teknologi</option>
+          <option>Olahraga</option>
+        </select>
+      </div>
+      <div class="form-control">
+        <label>Isi Berita</label>
+        <input type="text" id="isi">
+      </div>
+      <button type="button" class="btn" onclick="simpanBerita()">Simpan</button>
+      <button type="button" class="btn btn-danger" onclick="tutupFormBerita()">Batal</button>
+    </div>
+  </form>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="js/script.js"></script>
+
+  <!-- === POPUP TAMBAH BERITA / DATA === -->
+<div id="popupInput" class="popup-overlay" style="display:none;">
+  <div class="popup-box">
+    <h3 id="popupTitle">Tambah Data</h3>
+    <input type="text" id="popupInput1" placeholder="Masukkan judul berita..." />
+    <input type="text" id="popupInput2" placeholder="Masukkan isi berita..." />
+    <div class="popup-actions">
+      <button id="popupOk" class="btn">OK</button>
+      <button id="popupCancel" class="btn btn-danger">Batal</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function tampilkanRiwayatLogin() {
+  const konten = document.getElementById("konten");
+  const riwayat = JSON.parse(localStorage.getItem("riwayatLogin") || "[]");
+
+  let html = `
+    <h2 style="color: #4CAF50; margin-bottom: 10px;">Riwayat Login</h2>
+    <button class="btn btn-danger" onclick="hapusSemuaRiwayat()">Hapus Semua</button>
+    <div class="riwayat-container" style="margin-top: 20px;">
+  `;
+
+  if (riwayat.length === 0) {
+    html += `<p style="text-align:center;">Belum ada riwayat login</p>`;
+  } else {
+    riwayat.forEach((item, index) => {
+      html += `
+        <div class="riwayat-card" 
+             style="border-left: 5px solid #4CAF50; padding: 10px; margin-bottom: 10px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border-radius: 5px;">
+          <strong>Login ke-${index + 1}</strong>
+          <p>${item}</p>
+          <button class="btn btn-danger" onclick="hapusRiwayat(${index})">Hapus</button>
+        </div>
+      `;
+    });
+  }
+
+  html += `</div>`;
+  konten.innerHTML = html;
+}
+
+// Hapus satu riwayat
+function hapusRiwayat(index) {
+  let riwayat = JSON.parse(localStorage.getItem("riwayatLogin") || "[]");
+  riwayat.splice(index, 1);
+  localStorage.setItem("riwayatLogin", JSON.stringify(riwayat));
+  tampilkanRiwayatLogin();
+}
+
+// Hapus semua riwayat
+function hapusSemuaRiwayat() {
+  if (confirm("Yakin ingin menghapus semua riwayat login?")) {
+    localStorage.removeItem("riwayatLogin");
+    tampilkanRiwayatLogin();
+  }
+}
+</script>
+
+</script>
+
+</body>
+</html>

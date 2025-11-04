@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DailyScope - Dashboard</title>
+
+  <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+  <header class="headerTest">
+    <img src="asset/DailyScope.jpg" alt="DailyScope Logo">
+     <div class="header-right">
+        
+    <button class="login-btn"  onclick="toggleDarkMode()">Toggle Dark Mode</button>
+      <a href="index.html" class="login-btn">Home</a>
+      <a href="dashboard.html" class="login-btn">Dashboard</a>
+      <a href="login.html" class="login-btn">Login</a>
+    </div>
+  </header>
+  
+  <div class="dashboard-container">
+    <div class="card">
+      <h2>Profil Saya</h2>
+      <div class="profile-info">
+        <p><strong>Nama:</strong> M.Revaldo Andika</p>
+        <p><strong>Email:</strong> mrevaldoandika03@gmail.com</p>
+        <p><strong>Tanggal Lahir:</strong> 28 Januari 2006</p>
+        <p><strong>Gender:</strong> Laki-laki</p>
+      </div>
+      <div class="edit-form" id="editForm">
+        <input type="text" id="editName" placeholder="Nama Baru" required>
+        <input type="email" id="editEmail" placeholder="Email Baru" required>
+        <button onclick="saveProfile()">Simpan Perubahan</button>
+      </div>
+      <div class="settings-btn">
+        <a href="#" onclick="editProfile(event)">Edit Profil</a>
+        <a href="#" onclick="showNotification()">Notifikasi</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Ringkasan Berita</h2>
+      <div class="news-summary">
+        <p>Berita Dibaca: <span>15</span></p>
+        <p>Favorit: <span>5</span></p>
+        <p>Komentar: <span>3</span></p>
+      </div>
+    </div>
+  </div>
+  <button class="logout-btn">Logout</button>
+
+  <nav>
+    <a href="#"></a>
+  </nav>
+
+  <!-- 🔹 Popup Konfirmasi Logout -->
+  <div id="confirmLogoutPopup" class="popup" style="display: none;">
+    <div class="popup-content">
+      <h2>Apakah kamu yakin?</h2>
+      <p>Apakah kamu yakin ingin logout dari akun anda?</p>
+      <div class="popup-buttons">
+        <button class="btn danger" id="confirmYes">Iya</button>
+        <button class="btn" id="confirmNo">Tidak</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔹 Popup Logout Berhasil -->
+  <div id="logoutPopup" class="popup" style="display: none;">
+    <div class="popup-content">
+      <h2 class="success">Logout Berhasil 🌿</h2>
+      <p>Terima kasih telah menggunakan <b>DailyScope</b>. Sampai jumpa lagi!</p>
+      <button class="btn success" id="closeLogoutPopup">Lanjut ke Halaman Login</button>
+    </div>
+  </div>
+
+  <script src="js/dashboard.js"></script>
+</body>
+</html>

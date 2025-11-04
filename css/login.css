@@ -1,0 +1,136 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
+  }
+
+  header {
+    background: #4CAF50;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+  }
+
+  header img {
+    height: 40px;
+    border-radius: 4px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .mode-btn {
+    background: transparent;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  main {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .login, .reset {
+    max-width: 400px;
+    width: 100%;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    background: #fff;
+    transition: background 0.3s;
+  }
+
+  h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+  }
+
+  input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    background: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+  a {
+    color: #4CAF50;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .error {
+    color: red;
+    font-size: 13px;
+    display: none;
+  }
+
+  footer {
+    background: #4CAF50;
+    color: #fff;
+    text-align: center;
+    padding: 12px 0;
+    margin-top: auto;
+  }
+
+  footer a {
+    color: #fff;
+    margin: 0 10px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  /* MODE GELAP */
+  body.dark {
+    background: #121212;
+    color: white;
+  }
+  body.dark .login, body.dark .reset {
+    background: #1e1e1e;
+    color: white;
+  }
+  body.dark input {
+    background: #2a2a2a;
+    color: white;
+    border: 1px solid #555;
+  }
+  body.dark header, body.dark footer {
+    background: #222;
+  }

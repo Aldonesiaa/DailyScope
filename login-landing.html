@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DailyScope - Login Landing</title>
+    <style>
+        * { box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #ffffff; line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        header { background-color: #4CAF50; color: white; padding: 10px; text-align: center; position: relative; }
+        header img { height: 40px; vertical-align: middle; }
+        .landing-container { flex: 1; max-width: 500px; margin: 50px auto; padding: 20px; text-align: center; }
+        .landing-container h1 { color: #333333; margin-bottom: 20px; }
+        .landing-container p { color: #555555; margin-bottom: 30px; }
+        .btn-group { display: flex; flex-direction: column; gap: 10px; }
+        button { background-color: #4CAF50; color: white; padding: 12px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #45a049; }
+        .btn-secondary { background-color: #ffffff; color: #4CAF50; border: 1px solid #4CAF50; }
+        .btn-secondary:hover { background-color: #e0e0e0; }
+        nav { background: #4CAF50; color: white; text-align: center; padding: 10px; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; font-size: 14px; }
+        nav a:hover { text-decoration: underline; }
+        @media (max-width: 600px) {
+            .landing-container { margin: 20px; }
+            button { font-size: 14px; padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="asset/DailyScope.jpg" alt="DailyScope Logo">
+    </header>
+    
+    <div class="landing-container">
+        <h1>Selamat Datang di DailyScope</h1>
+        <p>Dapatkan update berita harian terbaru dengan mudah. Silakan login atau daftar untuk memulai!</p>
+        <div class="btn-group">
+            <button onclick="window.location.href='login.html'">Login</button>
+            <button class="btn-secondary" onclick="window.location.href='register.html'">Daftar</button>
+        </div>
+    </div>
+    
+    <nav>
+        <a href="index.html">Home</a> |
+        <a href="login-landing.html">Login</a> |
+        <a href="register.html">Register</a> |
+        <a href="dashboard.html">Dashboard</a>
+    </nav>
+</body>
+</html>

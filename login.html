@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DailyScope - Login</title>
+<link rel="stylesheet" href="css/login.css">
+</head>
+<body>
+
+<header>
+  <img src="asset/DailyScope.jpg" alt="DailyScope Logo">
+  <div class="header-right">
+    <button id="modeToggle" class="mode-btn">🌙 Mode Gelap</button>
+  </div>
+</header>
+
+<main>
+  <!-- LOGIN FORM -->
+  <div class="login" id="loginBox">
+    <h2>Login ke DailyScope</h2>
+    <form id="loginForm">
+      <label for="email">Email</label>
+      <input id="email" type="text" placeholder="Masukkan email">
+      <div id="emailErr" class="error">Email harus diisi!</div>
+
+      <label for="pass">Kata Sandi</label>
+      <input id="pass" type="password" placeholder="Masukkan kata sandi">
+      <div id="passErr" class="error">Kata sandi salah atau kosong!</div>
+
+      <div style="text-align:right;margin-top:5px;">
+        <a href="#" id="forgotLink">Lupa Kata Sandi?</a>
+      </div>
+
+      <button type="submit">Masuk</button>
+      <p style="font-size:13px;text-align:center;color:#777;margin-top:15px;">
+        Belum punya akun? <a href="register.html">Daftar sekarang</a>
+      </p>
+    </form>
+  </div>
+
+  <!-- RESET PASSWORD FORM -->
+  <div class="reset" id="resetBox" style="display:none;">
+    <h2>Atur Ulang Kata Sandi</h2>
+    <form id="resetForm">
+      <label for="resetEmail">Masukkan Email Anda</label>
+      <input id="resetEmail" type="email" placeholder="Email terdaftar">
+      <div id="resetEmailErr" class="error">Email tidak ditemukan!</div>
+
+      <div id="newPassArea" style="display:none;">
+        <label for="newPass">Kata Sandi Baru</label>
+        <input id="newPass" type="password" placeholder="Masukkan kata sandi baru">
+      </div>
+
+      <button type="submit" id="resetBtn">Cari Email</button>
+      <p style="font-size:13px;text-align:center;margin-top:10px;">
+        <a href="#" id="backLogin">Kembali ke Login</a>
+      </p>
+    </form>
+  </div>
+</main>
+
+<footer></footer>
+
+<script>
+// === MODE DARK ===
+const toggle = document.getElementById('modeToggle');
+const body = document.body;
+if (localStorage.getItem('darkMode') === 'true') {
+  body.classList.add('dark');
+  toggle.textContent = '☀️ Mode Terang';
+}
+toggle.addEventListener('click', () => {
+  body.classList.toggle('dark');
+  const isDark = body.classList.contains('dark');
+  toggle.textContent = isDark ? '☀️ Mode Terang' : '🌙 Mode Gelap';
+  localStorage.setItem('darkMode', isDark);
+});
+
+// === BUAT AKUN ADMIN OTOMATIS ===
+(function ensureDefaultAdmin() {
+  const defaultAdmin = {
+    email: "mrevaldoandika03@gmail.com",
+    password: "Aldo3424",
+    role: "admin",
+    name: "Admin DailyScope"
+  };
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+  const adminExists = users.some(u => u.email.toLowerCase() === defaultAdmin.email.toLowerCase());
+  if (!adminExists) {
+    users.push(defaultAdmin);
+    localStorage.setItem("users", JSON.stringify(users));
+    console.log("✅ Akun admin dibuat:", defaultAdmin.email);
+  }
+})();
+
+// === VARIABEL INPUT LOGIN ===
+const emailInput = document.getElementById("email");
+const passInput = document.getElementById("pass");
+const emailErr = document.getElementById("emailErr");
+const passErr = document.getElementById("passErr");
+
+// === LOGIN ===
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+  const email = emailInput.value.trim();
+  const pass = passInput.value.trim();
+  emailErr.style.display = passErr.style.display = "none";
+
+  if (!email) { emailErr.style.display = "block"; return; }
+  if (!pass) { passErr.style.display = "block"; return; }
+
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+  const found = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === pass);
+
+  if (found) {
+    localStorage.setItem("loggedUser", JSON.stringify(found));
+
+    // ✅ CEK JIKA ADMIN
+    const isAdmin = found.role === "admin" || found.email.toLowerCase() === "mrevaldoandika03@gmail.com";
+
+    if (isAdmin) {
+      // 🔔 Popup konfirmasi masuk halaman admin
+      const confirmPopup = confirm("Do you want to continue to the admin page?");
+      if (confirmPopup) {
+        window.location.href = "admin.html";
+        return;
+      }
+    }
+
+    // ✅ Popup Login Berhasil untuk user biasa
+    const popup = document.createElement("div");
+    popup.style.position = "fixed";
+    popup.style.top = "0"; popup.style.left = "0";
+    popup.style.width = "100%"; popup.style.height = "100%";
+    popup.style.display = "flex"; popup.style.alignItems = "center";
+    popup.style.justifyContent = "center";
+    popup.style.background = "rgba(0,0,0,0.6)";
+    popup.style.zIndex = "9999";
+    popup.innerHTML = `
+      <div style="background:#fff;padding:30px 40px;border-radius:12px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,0.3)">
+        <h2 style="color:#4CAF50;">Login Berhasil 🌿</h2>
+        <p>Selamat datang kembali di <b>DailyScope</b>!</p>
+        <button id="goDash" style="background:#4CAF50;color:#fff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;">Lanjut ke Dashboard</button>
+      </div>
+    `;
+    document.body.appendChild(popup);
+
+    document.getElementById("goDash").addEventListener("click", () => {
+      window.location.href = "dashboard.html";
+    });
+
+  } else {
+    passErr.textContent = "Email atau kata sandi salah!";
+    passErr.style.display = "block";
+  }
+});
+
+// === LUPA KATA SANDI ===
+const forgotLink = document.getElementById("forgotLink");
+const loginBox = document.getElementById("loginBox");
+const resetBox = document.getElementById("resetBox");
+const backLogin = document.getElementById("backLogin");
+const resetForm = document.getElementById("resetForm");
+const resetEmail = document.getElementById("resetEmail");
+const newPassArea = document.getElementById("newPassArea");
+const resetBtn = document.getElementById("resetBtn");
+const resetEmailErr = document.getElementById("resetEmailErr");
+
+forgotLink.addEventListener("click", (e) => {
+  e.preventDefault();
+  loginBox.style.display = "none";
+  resetBox.style.display = "block";
+});
+
+backLogin.addEventListener("click", (e) => {
+  e.preventDefault();
+  resetBox.style.display = "none";
+  loginBox.style.display = "block";
+  resetForm.reset();
+  newPassArea.style.display = "none";
+  resetBtn.textContent = "Cari Email";
+});
+
+resetForm.addEventListener("submit", function(e) {
+  e.preventDefault();
+  const email = resetEmail.value.trim().toLowerCase();
+  const users = JSON.parse(localStorage.getItem("users") || "[]");
+  const foundIndex = users.findIndex(u => u.email.toLowerCase() === email);
+
+  resetEmailErr.style.display = "none";
+
+  if (newPassArea.style.display === "none") {
+    if (foundIndex !== -1) {
+      newPassArea.style.display = "block";
+      resetBtn.textContent = "Simpan Kata Sandi Baru";
+    } else {
+      resetEmailErr.textContent = "Email tidak ditemukan!";
+      resetEmailErr.style.display = "block";
+    }
+  } else {
+    const newPass = document.getElementById("newPass").value.trim();
+    if (!newPass) { alert("Kata sandi baru tidak boleh kosong!"); return; }
+    users[foundIndex].password = newPass;
+    localStorage.setItem("users", JSON.stringify(users));
+    alert("Kata sandi berhasil diubah! Silakan login kembali.");
+    resetBox.style.display = "none";
+    loginBox.style.display = "block";
+    resetForm.reset();
+    newPassArea.style.display = "none";
+    resetBtn.textContent = "Cari Email";
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,451 @@
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: Arial, sans-serif; background-color: #ffffff; line-height: 1.6; }
+
+/* Header */
+header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+header img { height: 40px; }
+.search-bar {
+  flex: 1;
+  margin: 0 15px;
+  padding: 8px 15px;
+  border-radius: 20px;
+  border: 1px solid #ccc;
+  max-width: 500px;
+}
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Tombol login */
+.login-btn {
+  background-color: #fff;
+  color: #4CAF50;
+  padding: 6px 16px;
+  border: 1px solid #4CAF50;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+.login-btn:hover { background-color: #e0e0e0; }
+
+/* Hamburger menu */
+.menu-icon {
+  font-size: 26px;
+  font-weight: bold;
+  cursor: pointer;
+  color: white;
+}
+#menu-toggle { display: none; }
+
+/* Dropdown menu */
+.menu-dropdown {
+  display: none;
+  background: #4CAF50;
+  text-align: center;
+  flex-direction: column;
+  padding: 10px 0;
+}
+.menu-dropdown a {
+  display: block;
+  color: white;
+  text-decoration: none;
+  padding: 8px 0;
+  font-weight: bold;
+}
+.menu-dropdown a:hover { background: #45a049; }
+
+/* Magic line – ini bagian penting */
+#menu-toggle:checked ~ .menu-dropdown {
+  display: flex;
+}
+
+/* Kategori */
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  flex-wrap: wrap;
+}
+.category-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  background-color: #d3d3d3;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  text-decoration: none;
+}
+.category-btn:hover { background-color: #4CAF50; color: white; }
+
+/* Konten berita */
+.news-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+.news-card {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  overflow: hidden;
+  width: 350px;
+}
+.news-card img { width: 100%; height: 200px; object-fit: cover; }
+.news-card-content { padding: 15px; }
+.news-card-content h3 { margin: 0; font-size: 20px; color: #333; }
+.news-card-content p { margin: 10px 0; color: #555; max-height: 80px; overflow: hidden; }
+.read-more-link {
+  display: inline-block;
+  color: white;
+  background-color: #007bff;
+  text-decoration: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+.read-more-link:hover { background-color: #0056b3; }
+
+/* Footer */
+nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #4CAF50;
+  color: white;
+  text-align: center;
+  padding: 10px;
+}
+nav a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+}
+nav a:hover { text-decoration: underline; }
+
+/* Responsif */
+@media (max-width: 600px) {
+  header { flex-direction: column; align-items: flex-start; }
+  .search-bar { width: 100%; margin: 10px 0; }
+  .login-btn { font-size: 13px; padding: 4px 10px; }
+  .menu-icon { position: absolute; right: 15px; top: 10px; }
+  .news-card { width: 100%; }
+  .news-card img { height: 150px; }
+}
+
+/* Responsive untuk layar kecil (ponsel) */
+@media (max-width: 600px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .sidebar h2 {
+    margin: 0;
+    font-size: 18px;
+  }
+
+  .sidebar ul {
+    display: flex;
+    gap: 8px;
+    margin: 0;
+    padding: 0;
+  }
+
+  .sidebar ul li a {
+    padding: 6px 8px;
+    font-size: 14px;
+  }
+
+  .content {
+    padding: 16px;
+  }
+
+  table {
+    font-size: 13px;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  footer {
+    font-size: 13px;
+    padding: 10px 8px;
+    text-align: center;
+  }
+
+  /* 🌙 MODE GELAP FIX - SEMUA TEKS TERBACA */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+/* Header */
+body.dark-mode header {
+  background-color: #2e8b57;
+}
+
+/* Search bar */
+body.dark-mode .search-bar {
+  background-color: #1f1f1f;
+  color: #ffffff;
+  border: 1px solid #555;
+}
+
+/* Kategori */
+body.dark-mode .categories {
+  background-color: #1a1a1a;
+}
+
+body.dark-mode .category-btn {
+  background-color: #2e8b57;
+  color: #fff;
+}
+
+body.dark-mode .category-btn:hover {
+  background-color: #3cb371;
+}
+
+/* Kartu berita */
+body.dark-mode .news-card {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .news-card-content h3 {
+  color: #ffffff;
+}
+
+body.dark-mode .news-card-content p {
+  color: #eaeaea;
+}
+
+body.dark-mode .read-more-link {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+body.dark-mode .read-more-link:hover {
+  background-color: #45d16b;
+}
+
+/* Footer */
+body.dark-mode nav {
+  background-color: #2e8b57;
+}
+
+body.dark-mode nav a {
+  color: #fff;
+}
+
+/* === Tambahan biar teks berita terlihat jelas === */
+.news-card-content h3, 
+.news-card-content p {
+  color: #f0f0f0;
+}
+
+/* Modal pop-up */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  padding-top: 80px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.8);
+}
+
+.modal-content {
+  background-color: #fff;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+  max-width: 700px;
+  text-align: center;
+  position: relative;
+}
+
+.modal-content img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.modal h2 {
+  color: #222;
+}
+
+.modal p {
+  color: #444;
+  text-align: justify;
+}
+
+.close-btn {
+  position: absolute;
+  right: 15px;
+  top: 10px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+.close-btn:hover {
+  color: red;
+}
+.footer-menu {
+  background-color: #4CAF50;
+  text-align: center;
+  padding: 12px 0;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+
+.footer-menu a {
+  color: white;
+  text-decoration: none;
+  margin: 0 15px;
+  font-size: 15px;
+}
+
+.footer-menu a:hover {
+  text-decoration: underline;
+}
+
+.main-content {
+  text-align: center;       
+  margin-left: 220px;       
+  padding: 50px 0;          
+}
+
+/* Judul */
+.main-content h1 {
+  color: #4CAF50;
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Deskripsi bawah judul */
+.main-content p {
+  color: #333;
+  font-size: 15px;
+  margin: 0;
+}
+/* ===== Animasi Popup ===== */
+.popup-berita {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.popup-berita.show {
+  display: flex;
+  opacity: 1;
+}
+
+.popup-berita-content {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transform: scale(0.9);
+  transition: transform 0.3s ease;
+}
+
+.popup-berita.show .popup-berita-content {
+  transform: scale(1);
+}
+  }
+
+  .error {
+    color: red;
+    font-size: 13px;
+    display: none;
+  }
+
+  footer {
+    background: #4CAF50;
+    color: #fff;
+    text-align: center;
+    padding: 12px 0;
+    margin-top: auto;
+  }
+
+  footer a {
+    color: #fff;
+    margin: 0 10px;
+    font-weight: bold;
+    text-decoration: none;
+  }
+
+  /* MODE GELAP */
+  body.dark {
+    background: #121212;
+    color: white;
+  }
+  body.dark .login, body.dark .reset {
+    background: #1e1e1e;
+    color: white;
+  }
+  body.dark input {
+    background: #2a2a2a;
+    color: white;
+    border: 1px solid #555;
+  }
+  body.dark header, body.dark footer {
+    background: #222;
+  }
+   #popupLoginConfirm .popup-content h2 {
+  color: #e67e22;
+}
+
+#popupLoginConfirm .popup-content button {
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 8px 18px;
+}

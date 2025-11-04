@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DailyScope - Dashboard</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: linear-gradient(135deg, #f0f4f8, #ffffff); min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s; }
+        body.dark-mode { background: linear-gradient(135deg, #2c3e50, #34495e); }
+        body.dark-mode .card { background: #2f2f2f; }
+        body.dark-mode .card h2, body.dark-mode .profile-info p strong { color: #ecf0f1; }
+        body.dark-mode .profile-info p, body.dark-mode .news-summary p, body.dark-mode .notifications p { color: #bdc3c7; }
+        body.dark-mode .settings-btn a { background: #27ae60; }
+        body.dark-mode .settings-btn a:hover { background: #219653; }
+        body.dark-mode nav a { color: #ecf0f1; }
+        body.dark-mode nav a:hover { color: #dfe6e9; }
+        header { background: linear-gradient(90deg, #4CAF50, #45a049); color: white; padding: 15px; text-align: center; position: relative; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        header img { height: 50px; vertical-align: middle; }
+        .dashboard-container { max-width: 900px; margin: 30px auto; padding: 20px; display: flex; gap: 20px; flex-wrap: wrap; }
+        .card { background: #ffffff; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); padding: 20px; width: 100%; transition: transform 0.3s; }
+        .card:hover { transform: translateY(-5px); }
+        .card h2 { color: #333333; margin-bottom: 15px; font-size: 22px; }
+        .profile-info p { margin: 10px 0; color: #555555; font-size: 16px; }
+        .profile-info p strong { color: #333333; }
+        .news-summary { margin-top: 20px; }
+        .news-summary p { margin: 8px 0; color: #666666; }
+        .news-summary p span { color: #4CAF50; font-weight: bold; }
+        .edit-form { display: none; margin-top: 20px; }
+        .edit-form.active { display: block; }
+        .edit-form input, .edit-form select { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; }
+        .edit-form button { background: #4CAF50; color: white; padding: 8px; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+        .edit-form button:hover { background: #45a049; }
+        .notifications { display: none; margin-top: 20px; }
+        .notifications.active { display: block; }
+        .notifications p { margin: 5px 0; color: #666666; }
+        .settings-btn { display: flex; gap: 10px; margin-top: 20px; }
+        .settings-btn a { flex: 1; text-align: center; padding: 10px; background: #4CAF50; color: white; text-decoration: none; border-radius: 8px; transition: background 0.3s; cursor: pointer; }
+        .settings-btn a:hover { background: #45a049; }
+        .toggle-dark { position: absolute; top: 15px; right: 15px; background: #ffffff; padding: 5px 10px; border: none; border-radius: 20px; cursor: pointer; color: #4CAF50; font-size: 14px; }
+        .toggle-dark:hover { background: #e0e0e0; }
+        .logout-btn { background: linear-gradient(90deg, #ff4e50, #f9cb28); padding: 12px; border: none; border-radius: 8px; color: white; font-size: 16px; cursor: pointer; width: 100%; margin-top: 20px; transition: transform 0.3s; }
+        .logout-btn:hover { transform: scale(1.05); }
+        nav { background: linear-gradient(90deg, #4CAF50, #45a049); color: white; text-align: center; padding: 15px; position: fixed; bottom: 0; width: 100%; box-shadow: 0 -2px 10px rgba(0,0,0,0.1); }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; font-size: 14px; transition: color 0.3s; }
+        nav a:hover { color: #f0f4f8; }
+        @media (min-width: 768px) {
+            .card { width: calc(50% - 10px); }
+            .dashboard-container { padding: 30px; }
+        }
+        @media (max-width: 600px) {
+            header img { height: 40px; }
+            .dashboard-container { margin: 10px; padding: 10px; }
+            .card { width: 100%; }
+            .logout-btn { font-size: 14px; }
+            .toggle-dark { top: 10px; right: 10px; font-size: 12px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="asset/DailyScope.jpg" alt="DailyScope Logo">
+        <button class="toggle-dark" onclick="toggleDarkMode()">Toggle Dark Mode</button>
+    </header>
+    
+    <div class="dashboard-container">
+        <div class="card">
+            <h2>Profil Saya</h2>
+            <div class="profile-info" id="profileInfo">
+                <p><strong>Nama:</strong> <span id="displayName">M.Revaldo Andika</span></p>
+                <p><strong>Email:</strong> <span id="displayEmail">mrevaldoandika03@gmail.com</span></p>
+                <p><strong>Tanggal Lahir:</strong> <span id="displayBirthday">28 Januari 2006</span></p>
+                <p><strong>Gender:</strong> <span id="displayGender">Laki-laki</span></p>
+            </div>
+            <div class="edit-form" id="editForm">
+                <input type="text" id="editName" placeholder="Nama Baru" required>
+                <input type="email" id="editEmail" placeholder="Email Baru" required>
+                <input type="date" id="editBirthday" required>
+                <select id="editGender">
+                    <option value="male">Laki-laki</option>
+                    <option value="female">Perempuan</option>
+                    <option value="custom">Custom</option>
+                </select>
+                <button onclick="saveProfile()">Simpan Perubahan</button>
+            </div>
+            <div class="settings-btn">
+                <a href="#" id="editProfileLink" onclick="editProfile(event)">Edit Profil</a>
+                <a href="#" onclick="toggleNotifications(event)">Notifikasi</a>
+            </div>
+        </div>
+        <div class="card">
+            <h2>Ringkasan Berita</h2>
+            <div class="news-summary">
+                <p>Berita Dibaca: <span>15</span></p>
+                <p>Favorit: <span>5</span></p>
+                <p>Komentar: <span>3</span></p>
+            </div>
+            <div class="notifications" id="notifications">
+                <p>Notifikasi 1: Berita baru tersedia!</p>
+                <p>Notifikasi 2: Anda punya 1 komentar baru.</p>
+            </div>
+        </div>
+    </div>
+    
+    <button class="logout-btn" onclick="window.location.href='login-landing.html'">Logout</button>
+    
+    <nav>
+        <a href="index.html">Home</a> |
+        <a href="login-landing.html">Login</a> |
+        <a href="register.html">Register</a> |
+        <a href="profile.html">Dashboard</a>
+    </nav>
+
+    <script>
+        // Toggle Dark Mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
+        }
+
+        // Load Data saat Halaman Dimuat
+        window.onload = function() {
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+            }
+            loadProfile();
+        };
+
+        // Load Profil dari localStorage
+        function loadProfile() {
+            const user = JSON.parse(localStorage.getItem('currentUser'));
+            if (user) {
+                document.getElementById('displayName').textContent = user.firstName + ' ' + (user.lastName || '');
+                document.getElementById('displayEmail').textContent = user.email;
+                document.getElementById('displayBirthday').textContent = new Date(user.birthday).toLocaleDateString('id-ID', { day: '2-digit', month: 'long', year: 'numeric' });
+                document.getElementById('displayGender').textContent = user.gender.charAt(0).toUpperCase() + user.gender.slice(1);
+            } else {
+                alert('Data pengguna tidak ditemukan! Silakan login ulang.');
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Edit Profil
+        function editProfile(event) {
+            event.preventDefault();
+            const editForm = document.getElementById('editForm');
+            const profileInfo = document.getElementById('profileInfo');
+            if (editForm.classList.contains('active')) {
+                editForm.classList.remove('active');
+                profileInfo.style.display = 'block';
+            } else {
+                const user = JSON.parse(localStorage.getItem('currentUser'));
+                if (user) {
+                    const fullName = user.firstName + ' ' + (user.lastName || '');
+                    document.getElementById('editName').value = fullName;
+                    document.getElementById('editEmail').value = user.email;
+                    document.getElementById('editBirthday').value = user.birthday.split('T')[0];
+                    document.getElementById('editGender').value = user.gender;
+                }
+                editForm.classList.add('active');
+                profileInfo.style.display = 'none';
+            }
+        }
+
+        // Simpan Perubahan Profil
+        function saveProfile() {
+            const newFullName = document.getElementById('editName').value.trim();
+            const newEmail = document.getElementById('editEmail').value.trim();
+            const newBirthday = document.getElementById('editBirthday').value;
+            const newGender = document.getElementById('editGender').value;
+
+            // Validasi
+            if (!newFullName || !newEmail || !newBirthday || !newGender) {
+                alert('Semua field harus diisi!');
+                return;
+            }
+
+            // Pisahkan nama depan dan belakang
+            const nameParts = newFullName.split(' ');
+            const newFirstName = nameParts[0];
+            const newLastName = nameParts.slice(1).join(' ') || '';
+
+            // Ambil data pengguna saat ini
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                alert('Data pengguna tidak ditemukan! Silakan login ulang.');
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Buat data pengguna yang diperbarui
+            const updatedUser = {
+                firstName: newFirstName,
+                lastName: newLastName,
+                birthday: newBirthday,
+                gender: newGender,
+                email: newEmail,
+                password: currentUser.password // Pertahankan password lama
+            };
+
+            // Perbarui array users di localStorage
+            let users = JSON.parse(localStorage.getItem('users') || '[]');
+            const userIndex = users.findIndex(u => u.email === currentUser.email);
+            if (userIndex !== -1) {
+                users[userIndex] = updatedUser;
+            } else {
+                users.push(updatedUser); // Tambahkan jika tidak ditemukan
+            }
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Perbarui currentUser
+            localStorage.setItem('currentUser', JSON.stringify(updatedUser));
+
+            // Perbarui tampilan
+            loadProfile(); // Reload profil untuk sinkronisasi
+            alert('Profil berhasil disimpan!');
+            editProfile({ preventDefault: () => {} }); // Tutup form
+        }
+
+        // Toggle Notifikasi
+        function toggleNotifications(event) {
+            event.preventDefault();
+            const notifications = document.getElementById('notifications');
+            notifications.classList.toggle('active');
+        }
+    </script>
+</body>
+</html>
